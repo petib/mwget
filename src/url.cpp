@@ -328,7 +328,7 @@ URL::_parse_location(char* &url)
 	begin = url;
 
 	for(ptr = begin; *ptr != '\0' && *ptr != '/'; ptr ++){
-		if(*ptr == '@'){ // contain user info
+		if(*ptr == '@' && NULL==strchr(ptr+1, '@')){ // contain user info
 			*ptr = '\0';
 			for(split = begin; *split != '\0' && *split != ':'; split ++) ;
 			if(*split == ':'){
