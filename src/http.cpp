@@ -126,7 +126,7 @@ int
 Http::connect()
 {
 	int ret;
-	
+
 	delete conn; conn = NULL;
 	conn = NULL;
 	log(_("Connecting...\n"));
@@ -145,13 +145,13 @@ Http::connect()
 	return 0;
 };
 
-int 
+int
 Http::header(const char *attrName, const char *attrValue)
 {
 	return request.set_attr(attrName, attrValue);
 };
 
-int 
+int
 Http::auth(const char *user, const char *password)
 {
 	const char *base64;
@@ -182,9 +182,9 @@ Http::set_range(off_t start, off_t end)
 {
 
 	if(end < 0){
-		snprintf(buf, 1024, "bytes=%lld-", start);
+		snprintf(buf, 1024, "bytes=%zd-", start);
 	}else{
-		snprintf(buf, 1024, "bytes=%lld-%lld", start, end);
+		snprintf(buf, 1024, "bytes=%zd-%zd", start, end);
 	}
 
 	return request.set_attr("Range", buf);
@@ -276,7 +276,7 @@ Http::post(const char *url)
 };
 #endif
 
-/* the normal head just like this 
+/* the normal head just like this
 HTTP/1.1 200 OK
 Date: Tue, 03 May 2005 07:37:36 GMT
 Server: Apache/2.0.52 (Gentoo/Linux) PHP/4.3.10

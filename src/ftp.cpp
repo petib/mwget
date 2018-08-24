@@ -105,7 +105,7 @@ Ftp::ftp_cmd(const char* cmd, const char* args)
 	int len;
 
 	if(cmd){
-		snprintf(buffer, 1024, "%s%s%s\r\n", cmd, 
+		snprintf(buffer, 1024, "%s%s%s\r\n", cmd,
 				args == NULL ? "" : " " ,
 				args == NULL ? "" : args);
 		log("%s", buffer);
@@ -181,7 +181,7 @@ Ftp::pwd(char** dir)
 	int ret;
 	char *ptr;
 	char *tdir;
-	
+
 	ret = ftp_cmd("PWD");
 	switch(ret){
 		case 257:
@@ -206,7 +206,7 @@ Ftp::size(const char *file, off_t *size)
 {
 	int ret;
 	char *ptr;
-	
+
 	if(!file) return -1;
 
 	ret = ftp_cmd("SIZE", file);
@@ -225,7 +225,7 @@ Ftp::size(const char *file, off_t *size)
 		*size += *ptr -= '0';
 		ptr ++;
 	}
-	
+
 	return 0;
 };
 
@@ -236,7 +236,7 @@ Ftp::rest(off_t offset)
 	if(offset < 0) return -1;
 	char buffer[64];
 
-	snprintf(buffer, 64, "%lld", offset);
+	snprintf(buffer, 64, "%zd", offset);
 	ret = ftp_cmd("REST", buffer);
 	switch(ret){
 		case 350:
@@ -291,7 +291,7 @@ Ftp::pasv(int *port)
 	/**********************************
 	 * RFC2428
 	 * ipv4:
-	 * <=PASV 
+	 * <=PASV
 	 * =>227 xxxx(h1,h2,h3,h4,p1,p2)
 	 * ipv6:
 	 * normal:
@@ -352,14 +352,14 @@ Ftp::port(int port)
 	 * ipv4:
 	 * <=PORT 10,20,12,66,port>>8,port&0xff
 	 * <=EPRT |1|132.235.1.2|6275|
-	 * ipv6: 
+	 * ipv6:
 	 * <=EPRT |2|IPv6.ascii|PORT.ascii|
 	 * =>200 xxx
 	 */
 	if(localAddr.ai_family == AF_INET){
 		if(localAddr.get_addr(addr, INET_ADDRSTRLEN) < 0)
 			return -1;
-		ptr = addr; 
+		ptr = addr;
 		while(*ptr){
 			if(*ptr == '.') *ptr = ',';
 			ptr ++;
@@ -435,7 +435,7 @@ Ftp::ftp_data_cmd(const char* cmd, const char* args, off_t offset)
 	}
 
 	dataConn->set_tos();
-	// data-connecting is opened and can read from 
+	// data-connecting is opened and can read from
 	// the data-connection now
 	return 0;
 };

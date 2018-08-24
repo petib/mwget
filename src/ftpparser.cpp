@@ -143,7 +143,7 @@ FtpParser::process_dos(char *line)
 	}
 	while(ISBLANK(*line)) line ++;
 	if(*line == '\0') return -1;
-	
+
 	file = StrDup(line);
 	tmp.tm_sec = 0;
 	tmp.tm_wday = 0;
@@ -155,7 +155,7 @@ FtpParser::process_dos(char *line)
 
 	return 0;
 }; // end of process_dos
-	
+
 /*
  * -rw-r--r--    1 0        0         9455616 Apr 05  2004 DOS71CD.ISO
  * -rwxrw-rw-    1 root     root        23421 Aug  7  1999 setup.exe
@@ -168,7 +168,7 @@ FtpParser::process_unix(char *line)
 	struct tm tmp;
 	type = *line;
 
-	static char* MonthStr[] = 
+	static const char* MonthStr[] =
 	{ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 	  NULL};
@@ -176,7 +176,7 @@ FtpParser::process_unix(char *line)
 	// permission
 	line += 10;
 	while(ISBLANK(*line)) line ++;
-	// 
+	//
 	while(*line != '\0' && !ISBLANK(*line)) line ++;
 	while(ISBLANK(*line)) line ++;
 	// user
@@ -196,7 +196,7 @@ FtpParser::process_unix(char *line)
 	// Aug  7  1999
 	// Aug 22 15:34
 	int i;
-	char **mon = MonthStr;
+	const char **mon = MonthStr;
 	for(i = 0; mon[i] != NULL; i ++){
 		if(strncasecmp(line, mon[i], 3) == 0){
 			tmp.tm_mon = i;
@@ -238,7 +238,7 @@ FtpParser::process_unix(char *line)
 		return -1;
 	}
 	while(ISBLANK(*line)) line ++;
-	
+
 	if(type == 'l'){
 		char *ptr;
 		ptr = strstr(line, " -> ");
@@ -277,7 +277,7 @@ FtpParser::parse(const char *line)
 	char *ptr;
 	int len;
 	int ret;
-	
+
 	reset();
 	if(strncasecmp(line, "total", 5) == 0){
 		return -1;

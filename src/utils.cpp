@@ -53,9 +53,9 @@ StrDup(const char *str)
 };
 
 /* the relative RFC: RFC 3548 */
-const char* 
+const char*
 base64_encode(const char *str, int length)
-{  
+{
 	static const char base64_table[64] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
     'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -110,7 +110,7 @@ base64_encode(const char *str, int length)
 };
 
 /* the decode function is not useful in this software so no need to write it
-   static const char* 
+   static const char*
    base64_decode(const char *str, int longth = -1)
    {
    };
@@ -138,7 +138,7 @@ get_current_time(void)
 	struct timeval time[1];
 
 	if(gettimeofday(time, 0) < 0) return -1;
-	
+
 	return (double)time->tv_sec + (double)time->tv_usec / 1000000 ;
 }
 
@@ -149,7 +149,7 @@ convert_size(char *sizeStr, off_t size)
 	double dsize = size;
 
 	if(dsize < 0){
-		sprintf(sizeStr, "%3ldB", 0);
+		sprintf(sizeStr, "%3ldB", 0L);
 		return;
 	}
 
@@ -190,12 +190,12 @@ void
 convert_time(char *timeStr, double time)
 {
 	long sec, min, hour, day;
-	
+
 	min = (long)time / 60; // min
 	sec = (long)time % 60; // sec
 
 	if(min < 60){
-		sprintf(timeStr, "%02d:%02d", min, sec);
+		sprintf(timeStr, "%02ld:%02ld", min, sec);
 		return;
 	}
 
@@ -203,7 +203,7 @@ convert_time(char *timeStr, double time)
 	min %= 60;
 
 	if(hour < 24){
-		sprintf(timeStr, "%2dh%2d", hour, min);
+		sprintf(timeStr, "%2ldh%2ld", hour, min);
 		return;
 	}
 
@@ -211,10 +211,10 @@ convert_time(char *timeStr, double time)
 	hour %= 24;
 
 	if(day < 100){
-		sprintf(timeStr, "%2dd%2d", day, hour);
+		sprintf(timeStr, "%2ldd%2ld", day, hour);
 		return;
 	}
-	
+
 	sprintf(timeStr, "--:--");
 };
 
@@ -222,7 +222,7 @@ bool
 file_exist(const char *file)
 {
 	int fd;
-	
+
 	assert(file != NULL);
 
 	fd = open(file, O_RDONLY);

@@ -228,7 +228,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = \
- 	-DLOCALEDIR=\"$(datadir)/locale\" 
+ 	-DLOCALEDIR=\"$(datadir)/locale\"
 
 AM_CFLAGS = \
 	 -Wall\
@@ -352,7 +352,7 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-mwget$(EXEEXT): $(mwget_OBJECTS) $(mwget_DEPENDENCIES) 
+mwget$(EXEEXT): $(mwget_OBJECTS) $(mwget_DEPENDENCIES)
 	@rm -f mwget$(EXEEXT)
 	$(CXXLINK) $(mwget_OBJECTS) $(mwget_LDADD) $(LIBS)
 
@@ -383,7 +383,7 @@ distclean-compile:
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCXX_TRUE@	@$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
